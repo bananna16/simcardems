@@ -7,7 +7,9 @@
 
 import pprint
 from pathlib import Path
+import numpy as np
 
+import dolfin
 import simcardems
 
 # Create configurations with custom output directory
@@ -15,8 +17,28 @@ here = Path(__file__).absolute().parent
 outdir = here / "results_DOX_M1"
 
 # Specify paths to the geometry that we will use
-geometry_path = here / "geometries/slab.h5"
-geometry_schema_path = here / "geometries/slab.json"
+#geometry_path = here / "geometries/slab.h5"
+#geometry_schema_path = here / "geometries/slab.json"
+
+#define the stimulus domain
+def stimulus_domain(mesh):
+    marker = 1
+    subdomain = dolfin.CompiledSubDomain(
+        "x[0] <= L + DOLFIN_EPS",
+        L=1,
+    )
+    domain = dolfin.MeshFunction("size_t", mesh, mesh.topology().dim())
+    domain.set_all(0)
+    subdomain.mark(domain, marker)
+    return simcardems.geometry.StimulusDomain(domain=domain, marker=marker)
+
+
+# and create the geometry
+
+geo = simcardems.slabgeometry.SlabGeometry(
+    parameters={"lx": 1.0, "ly": 1.0, "lz": 1.0, "dx": 1.0},
+    stimulus_domain=stimulus_domain,
+)
 
 # Please see https://computationalphysiology.github.io/cardiac_geometries/ for more info about the geometries
 
@@ -27,18 +49,25 @@ drug_factors_path = here / "drug_factors/DOX_FactorsM1.json"
 
 config = simcardems.Config(
     outdir=outdir,
-    geometry_path=geometry_path,
-    geometry_schema_path=geometry_schema_path,
+    #geometry_path=geometry_path,
+    #geometry_schema_path=geometry_schema_path,
     coupling_type = "fully_coupled_ORdmm_Land",
     T=1000,
     drug_factors_file=drug_factors_path,
+)
+
+# And create the coupling. Note that, here we are using a different method than usual for creating the coupling, since we need to also supply the geometry.
+
+coupling = simcardems.models.em_model.setup_EM_model_from_config(
+    config=config,
+    geometry=geo,
 )
 
 
 # Print current configuration
 pprint.pprint(config.as_dict())
 
-runner = simcardems.Runner(config)
+runner = simcardems.Runner.from_models(config=config, coupling=coupling)
 runner.solve(T=config.T, save_freq=config.save_freq, show_progress_bar=True)
 
 
