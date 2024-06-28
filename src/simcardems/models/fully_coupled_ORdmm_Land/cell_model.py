@@ -215,6 +215,11 @@ class ORdmmLandFull(BaseCellModel):
                 ("scale_drug_IpCa", 1.0),
                 ("scale_drug_Isacns", 1.0),
                 ("scale_drug_Isack", 1.0),
+                ("scale_drug_JRel", 1.0),
+                ("scale_drug_JUp", 1.0),
+                ("scale_drug_INaCa_i", 1.0),
+                ("scale_drug_INaCa_ss", 1.0),
+                ("scale_drug_INaK", 1.0),
                 # Population factors
                 ("scale_popu_GNa", 1.0),
                 ("scale_popu_GCaL", 1.0),
@@ -446,6 +451,11 @@ class ORdmmLandFull(BaseCellModel):
         scale_drug_IpCa = self._parameters["scale_drug_IpCa"]
         scale_drug_Isacns = self._parameters["scale_drug_Isacns"]
         scale_drug_Isack = self._parameters["scale_drug_Isack"]
+        scale_drug_JRel = self._parameters["scale_drug_JRel"]
+        scale_drug_JUp = self._parameters["scale_drug_JUp"]
+        scale_drug_INaCa_i = self._parameters["scale_drug_INaCa_i"]
+        scale_drug_INaCa_ss = self._parameters["scale_drug_INaCa_ss"]
+        scale_drug_INaK = self._parameters["scale_drug_INaK"]
         # Population factors
         scale_popu_GNa = self._parameters["scale_popu_GNa"]
         scale_popu_GCaL = self._parameters["scale_popu_GCaL"]
@@ -602,7 +612,7 @@ class ORdmmLandFull(BaseCellModel):
         zna = 1.0
         JncxNa_i = E3_i * k4pp_i - E2_i * k3pp_i + 3.0 * E4_i * k7_i - 3.0 * E1_i * k8_i
         JncxCa_i = E2_i * k2_i - E1_i * k1_i
-        INaCa_i = 0.8 * Gncx * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_i + zna * JncxNa_i) * allo_i
+        INaCa_i = 0.8 * Gncx * scale_drug_INaCa_i * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_i + zna * JncxNa_i) * allo_i
 
         # Expressions for the INaCa_ss component
         h1 = 1.0 + (1.0 + hna) * nass / kna3
@@ -640,7 +650,7 @@ class ORdmmLandFull(BaseCellModel):
         allo_ss = 1.0 / (1.0 + ufl.elem_pow(KmCaAct / cass, 2.0))
         JncxNa_ss = E3_ss * k4pp - E2_ss * k3pp + 3.0 * E4_ss * k7 - 3.0 * E1_ss * k8
         JncxCa_ss = E2_ss * k2 - E1_ss * k1
-        INaCa_ss = 0.2 * Gncx * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_ss + zna * JncxNa_ss) * allo_ss
+        INaCa_ss = 0.2 * Gncx * scale_drug_INaCa_ss * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_ss + zna * JncxNa_ss) * allo_ss
 
         # Expressions for the INaK component
         Knai = Knai0 * ufl.exp(0.3333333333333333 * F * delta * v / (R * T))
@@ -680,7 +690,7 @@ class ORdmmLandFull(BaseCellModel):
         E4 = x4 / (x1 + x2 + x3 + x4)
         JnakNa = 3.0 * E1 * a3 - 3.0 * E2 * b3
         JnakK = 2.0 * E4 * b1 - 2.0 * E3 * a1
-        INaK = Pnak * scale_popu_KNaK * HF_scaling_Pnak * (zk * JnakK + zna * JnakNa)
+        INaK = Pnak * scale_drug_INaK * scale_popu_KNaK * HF_scaling_Pnak * (zk * JnakK + zna * JnakNa)
 
         # Expressions for the IKb component
         xkb = 1.0 / (1.0 + 2.202363450949239 * ufl.exp(-0.05452562704471101 * v))
@@ -931,6 +941,12 @@ class ORdmmLandFull(BaseCellModel):
         scale_drug_IpCa = self._parameters["scale_drug_IpCa"]
         scale_drug_Isacns = self._parameters["scale_drug_Isacns"]
         scale_drug_Isack = self._parameters["scale_drug_Isack"]
+        scale_drug_JRel = self._parameters["scale_drug_JRel"]
+        scale_drug_JUp = self._parameters["scale_drug_JUp"]
+        scale_drug_INaCa_i = self._parameters["scale_drug_INaCa_i"]
+        scale_drug_INaCa_ss = self._parameters["scale_drug_INaCa_ss"]
+        scale_drug_INaK = self._parameters["scale_drug_INaK"]
+        
 
         # Population factors
         scale_popu_GNa = self._parameters["scale_popu_GNa"]
@@ -1234,7 +1250,7 @@ class ORdmmLandFull(BaseCellModel):
         zna = 1.0
         JncxNa_i = E3_i * k4pp_i - E2_i * k3pp_i + 3.0 * E4_i * k7_i - 3.0 * E1_i * k8_i
         JncxCa_i = E2_i * k2_i - E1_i * k1_i
-        INaCa_i = 0.8 * Gncx * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_i + zna * JncxNa_i) * allo_i
+        INaCa_i = 0.8 * Gncx * scale_drug_INaCa_i * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_i + zna * JncxNa_i) * allo_i
 
         # Expressions for the INaCa_ss component
         h1 = 1.0 + (1.0 + hna) * nass / kna3
@@ -1272,7 +1288,7 @@ class ORdmmLandFull(BaseCellModel):
         allo_ss = 1.0 / (1.0 + ufl.elem_pow(KmCaAct / cass, 2.0))
         JncxNa_ss = E3_ss * k4pp - E2_ss * k3pp + 3.0 * E4_ss * k7 - 3.0 * E1_ss * k8
         JncxCa_ss = E2_ss * k2 - E1_ss * k1
-        INaCa_ss = 0.2 * Gncx * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_ss + zna * JncxNa_ss) * allo_ss
+        INaCa_ss = 0.2 * Gncx * scale_drug_INaCa_ss * scale_popu_KNCX * HF_scaling_Gncx * (zca * JncxCa_ss + zna * JncxNa_ss) * allo_ss
 
         # Expressions for the INaK component
         Knai = Knai0 * ufl.exp(0.3333333333333333 * F * delta * v / (R * T))
@@ -1312,7 +1328,7 @@ class ORdmmLandFull(BaseCellModel):
         E4 = x4 / (x1 + x2 + x3 + x4)
         JnakNa = 3.0 * E1 * a3 - 3.0 * E2 * b3
         JnakK = 2.0 * E4 * b1 - 2.0 * E3 * a1
-        INaK = Pnak * scale_popu_KNaK * HF_scaling_Pnak * (zk * JnakK + zna * JnakNa)
+        INaK = Pnak * scale_drug_INaK * scale_popu_KNaK * HF_scaling_Pnak * (zk * JnakK + zna * JnakNa)
 
         # Expressions for the IKb component
         xkb = 1.0 / (1.0 + 2.202363450949239 * ufl.exp(-0.05452562704471101 * v))
@@ -1372,14 +1388,14 @@ class ORdmmLandFull(BaseCellModel):
         tau_relp = ufl.conditional(ufl.lt(tau_relp_tmp, 0.001), 0.001, tau_relp_tmp)
         F_expressions[31] = (-Jrelp + Jrel_infp) / tau_relp
         fJrelp = 1.0 / (1.0 + KmCaMK / CaMKa)
-        Jrel = ((1.0 - fJrelp) * Jrelnp + Jrelp * fJrelp) * scale_popu_KRyR
+        Jrel = ((1.0 - fJrelp) * Jrelnp + Jrelp * fJrelp) * scale_popu_KRyR * scale_drug_JRel
 
         # Expressions for the calcium buffers component
         Jupnp = 0.004375 * cai / (0.00092 + cai)
         Jupp = 0.01203125 * cai / (0.00075 + cai)
         fJupp = 1.0 / (1.0 + KmCaMK / CaMKa)
         Jleak = 0.0002625 * cansr * scale_popu_Kleak * HF_scaling_Jleak
-        Jup = -Jleak + ((1.0 - fJupp) * Jupnp + Jupp * fJupp) * scale_popu_KSERCA * HF_scaling_Jup
+        Jup = -Jleak + ((1.0 - fJupp) * Jupnp + Jupp * fJupp) * scale_popu_KSERCA * HF_scaling_Jup * scale_drug_JUp
         Jtr = 0.01 * cansr - 0.01 * cajsr
 
         # Expressions for the intracellular concentrations component
