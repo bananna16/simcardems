@@ -4,7 +4,8 @@ import simcardems
 import numpy as np
 
 here = Path(__file__).absolute().parent
-path_results = here / "figures"
+path_results = here.parent / "results/figures"
+
 
 # Function with array of output directories and path to results and labels as input: loops through the arrays
 
@@ -54,7 +55,7 @@ def plot_multiple_state_traces(
     fig.savefig(path_results.joinpath(f"state_traces_center_loop.png"), dpi=300)
 
 # Call function to plot multiple simulation results in one plot
-outdir_arr = [here / "results_DOX_M1", here / "results_healthy"]
+outdir_arr = [here.parent / "demos/results_DOX_M1", here.parent / "demos/results_healthy"]
 label_arr = ["DOX", "Healthy"]
 reduction =  "center"
 
