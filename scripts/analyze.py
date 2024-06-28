@@ -54,7 +54,7 @@ def plot_multiple_state_traces(
     fig.savefig(path_results.joinpath(f"state_traces_center_loop.png"), dpi=300)
 
 # Call function to plot multiple simulation results in one plot
-outdir_arr = [here / "results_DOX_Method1", here / "results_drug_demo_healthy"]
+outdir_arr = [here / "results_DOX_M1", here / "results_healthy"]
 label_arr = ["DOX", "Healthy"]
 reduction =  "center"
 
