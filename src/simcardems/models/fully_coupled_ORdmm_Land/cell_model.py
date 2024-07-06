@@ -248,6 +248,7 @@ class ORdmmLandFull(BaseCellModel):
                 ("scale_popu_TRPN50", 1.0),
                 ("scale_popu_rw", 1.0),
                 ("scale_popu_rs", 1.0),
+                ("scale_popu_JUp", 1.0),
                 # HF scaling factors
                 ("HF_scaling_CaMKa", 1.0),
                 ("HF_scaling_Jrel_inf", 1.0),
@@ -456,6 +457,7 @@ class ORdmmLandFull(BaseCellModel):
         scale_drug_INaCa_i = self._parameters["scale_drug_INaCa_i"]
         scale_drug_INaCa_ss = self._parameters["scale_drug_INaCa_ss"]
         scale_drug_INaK = self._parameters["scale_drug_INaK"]
+
         # Population factors
         scale_popu_GNa = self._parameters["scale_popu_GNa"]
         scale_popu_GCaL = self._parameters["scale_popu_GCaL"]
@@ -470,6 +472,8 @@ class ORdmmLandFull(BaseCellModel):
         scale_popu_GbNa = self._parameters["scale_popu_GbNa"]
         scale_popu_GbCa = self._parameters["scale_popu_GbCa"]
         scale_popu_KpCa = self._parameters["scale_popu_KpCa"]
+        scale_popu_JUp = self._parameters["scale_popu_JUp"]
+        
         # Systolic Heart Failure (HF with preserved ejection fraction)
         HF_scaling_CaMKa = self._parameters["HF_scaling_CaMKa"]
         HF_scaling_GNaL = self._parameters["HF_scaling_GNaL"]
@@ -975,6 +979,7 @@ class ORdmmLandFull(BaseCellModel):
         scale_popu_TRPN50 = self._parameters["scale_popu_TRPN50"]
         scale_popu_rw = self._parameters["scale_popu_rw"]
         scale_popu_rs = self._parameters["scale_popu_rs"]
+        scale_popu_JUp = self._parameters["scale_popu_JUp"]
 
         # Systolic Heart Failure (HF with preserved ejection fraction)
         HF_scaling_CaMKa = self._parameters["HF_scaling_CaMKa"]
@@ -1395,7 +1400,7 @@ class ORdmmLandFull(BaseCellModel):
         Jupp = 0.01203125 * cai / (0.00075 + cai)
         fJupp = 1.0 / (1.0 + KmCaMK / CaMKa)
         Jleak = 0.0002625 * cansr * scale_popu_Kleak * HF_scaling_Jleak
-        Jup = -Jleak + ((1.0 - fJupp) * Jupnp + Jupp * fJupp) * scale_popu_KSERCA * HF_scaling_Jup * scale_drug_JUp
+        Jup = -Jleak + ((1.0 - fJupp) * Jupnp + Jupp * fJupp) * scale_popu_KSERCA * HF_scaling_Jup * scale_drug_JUp * scale_popu_JUp
         Jtr = 0.01 * cansr - 0.01 * cajsr
 
         # Expressions for the intracellular concentrations component
