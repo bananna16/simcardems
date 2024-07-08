@@ -14,7 +14,7 @@ import simcardems
 
 # Create configurations with custom output directory
 here = Path(__file__).absolute().parent
-outdir = here / "results_DOX_M1"
+outdir = here / "results_DOX_M1_SS"
 
 # Specify paths to the geometry that we will use
 #geometry_path = here / "geometries/slab.h5"
@@ -52,7 +52,7 @@ config = simcardems.Config(
     #geometry_path=geometry_path,
     #geometry_schema_path=geometry_schema_path,
     coupling_type = "fully_coupled_ORdmm_Land",
-    T=1000,
+    T=1000*3000,
     drug_factors_file=drug_factors_path,
 )
 
