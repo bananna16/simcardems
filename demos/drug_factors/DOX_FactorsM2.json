@@ -1,0 +1,21 @@
+{
+    "scale_drug_INa":1.0,
+    "scale_drug_INaL":1.0,
+    "scale_drug_Ito":1.0,
+    "scale_drug_ICaL":1.32,
+    "scale_drug_IKr":0.56,
+    "scale_drug_IKs":1.0,
+    "scale_drug_IK1":1.0,
+    "scale_drug_IKb":1.0,
+    "scale_drug_INab":1.0,
+    "scale_drug_ICab":1.0,
+    "scale_drug_IpCa":1.0,
+    "scale_drug_Isacns":1.0,
+    "scale_drug_Isack":1.0,
+    "scale_drug_JRel":1.78,
+    "scale_drug_JUp":0.93,
+    "scale_drug_INaCa_i":0.94,
+    "scale_drug_INaCa_ss":0.94,
+    "scale_drug_INaK":0.99
+
+}
