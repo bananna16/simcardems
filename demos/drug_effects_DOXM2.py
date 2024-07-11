@@ -13,7 +13,7 @@ import simcardems
 
 # Create configurations with custom output directory
 here = Path(__file__).absolute().parent
-outdir = here / "results_DOX_M1_SS"
+outdir = here / "results_DOX_M1"
 
 # Specify paths to the geometry that we will use
 #geometry_path = here / "geometries/slab.h5"
@@ -42,7 +42,7 @@ geo = simcardems.slabgeometry.SlabGeometry(
 # Please see https://computationalphysiology.github.io/cardiac_geometries/ for more info about the geometries
 
 # Specify path to the file containing drug scaling factors
-drug_factors_path = here / "drug_factors/DOX_FactorsM1.json"
+drug_factors_path = here / "drug_factors/DOX_FactorsM2.json"
 
 # The scaling factors in this file are applied to the corresponding ion currents as a modulator of the ion channel conductance. The example file reduces the sodium current to 10%.
 
@@ -51,7 +51,7 @@ config = simcardems.Config(
     #geometry_path=geometry_path,
     #geometry_schema_path=geometry_schema_path,
     coupling_type = "fully_coupled_ORdmm_Land",
-    T=1000*3000,
+    T=1000,
     drug_factors_file=drug_factors_path,
 )
 

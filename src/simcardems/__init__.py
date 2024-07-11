@@ -35,7 +35,6 @@ from .runner import Runner
 from .runner import TimeStepper
 from .version import __version__
 
-
 def set_log_level(level):
     from daiquiri import set_default_log_levels
 
