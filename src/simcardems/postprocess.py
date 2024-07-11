@@ -425,6 +425,7 @@ def extract_biomarkers(
     d["ampCa"] = np.max(Ca) - np.min(Ca)
     d["CaTD50"] = Ca_beat.apd(50)
     d["CaTD80"] = Ca_beat.apd(80)
+    d["CaRT90"] = Ca_beat.tau(90) #Ca2+ relaxation time: time to recover to 10% of the peak value
 
     if Ta is not None:
         Ta_beat = apf.Beat(Ta, t=time)
@@ -474,9 +475,9 @@ def get_biomarkers(results, outdir, num_models):
         V = results[f"m{PoMm}"]["ep"]["V"]
         Ca = results[f"m{PoMm}"]["ep"]["Ca"]
         Ta = results[f"m{PoMm}"]["mechanics"]["Ta"]
-        lmbda = results[f"m{PoMm}"]["mechanics"]["lmbda"]
+        lmbda = results[f"m{PoMm}"]["mechanics"]["lambda"]
         u = results[f"m{PoMm}"]["mechanics"]["u"]
-        inv_lmbda = results[f"m{PoMm}"]["mechanics"]["inv_lmbda"]
+        #inv_lmbda = results[f"m{PoMm}"]["mechanics"]["inv_lambda"]
 
         # Select only last beat for further analysis
         onlylastbeat = True
@@ -502,7 +503,7 @@ def get_biomarkers(results, outdir, num_models):
             lmbda = lmbda[interval[0] : interval[1]]
 
             u = u[interval[0] : interval[1], :]
-            inv_lmbda = inv_lmbda[interval[0] : interval[1]]
+            #inv_lmbda = inv_lmbda[interval[0] : interval[1]]
             time = timelb[interval[0] : interval[1]]
 
             figlast, axlast = plt.subplots()
@@ -517,7 +518,7 @@ def get_biomarkers(results, outdir, num_models):
             time=time,
             Ca=Ca,
             lmbda=lmbda,
-            inv_lmbda=inv_lmbda,
+            #inv_lmbda=inv_lmbda,
             u=u,
         )
 
