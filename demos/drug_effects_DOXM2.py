@@ -13,7 +13,7 @@ import simcardems
 
 # Create configurations with custom output directory
 here = Path(__file__).absolute().parent
-outdir = here / "results_DOX_M1"
+outdir = here / "results_DOX_M2"
 
 # Specify paths to the geometry that we will use
 #geometry_path = here / "geometries/slab.h5"
