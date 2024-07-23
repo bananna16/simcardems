@@ -250,6 +250,7 @@ class ORdmmLandFull(BaseCellModel):
                 ("scale_popu_rw", 1.0),
                 ("scale_popu_rs", 1.0),
                 ("scale_popu_JUp", 1.0),
+                ("scale_popu_calm", 1.0),
                 # HF scaling factors
                 ("HF_scaling_CaMKa", 1.0),
                 ("HF_scaling_Jrel_inf", 1.0),
@@ -475,6 +476,7 @@ class ORdmmLandFull(BaseCellModel):
         scale_popu_GbCa = self._parameters["scale_popu_GbCa"]
         scale_popu_KpCa = self._parameters["scale_popu_KpCa"]
         scale_popu_JUp = self._parameters["scale_popu_JUp"]
+        cale_popu_calm = self._parameters["scale_popu_calm"]
         
         # Systolic Heart Failure (HF with preserved ejection fraction)
         HF_scaling_CaMKa = self._parameters["HF_scaling_CaMKa"]
@@ -983,6 +985,7 @@ class ORdmmLandFull(BaseCellModel):
         scale_popu_rw = self._parameters["scale_popu_rw"]
         scale_popu_rs = self._parameters["scale_popu_rs"]
         scale_popu_JUp = self._parameters["scale_popu_JUp"]
+        scale_popu_calm = self._parameters["scale_popu_calm"]
 
         # Systolic Heart Failure (HF with preserved ejection fraction)
         HF_scaling_CaMKa = self._parameters["HF_scaling_CaMKa"]
@@ -1475,7 +1478,7 @@ class ORdmmLandFull(BaseCellModel):
         dCd = -Cd + C
         eta = ufl.conditional(ufl.lt(dCd, 0.0), etas, etal)
         F_expressions[43] = p_k * (-Cd + C) / eta
-        Bcai = 1.0 / (1.0 + cmdnmax * kmcmdn * ufl.elem_pow(kmcmdn + cai, -2.0))
+        Bcai = 1.0 / (1.0 + cmdnmax * scale_popu_calm * kmcmdn * ufl.elem_pow(kmcmdn + cai, -2.0))
         J_TRPN = trpnmax * F_expressions[41]
         F_expressions[44] = (
             -J_TRPN
