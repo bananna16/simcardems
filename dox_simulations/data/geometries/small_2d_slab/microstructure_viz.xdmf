@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<Xdmf Version="3.0">
+  <Domain>
+    <Grid GridType="Collection" CollectionType="Temporal" Name="f0">
+      <Grid Name="f0_0" GridType="Uniform">
+        <Topology NumberOfElements="59" TopologyType="Tetrahedron" NodesPerElement="4">
+          <DataItem Dimensions="59 4" NumberType="UInt" Format="HDF">microstructure_viz.h5:f0/f0_0/mesh/topology</DataItem>
+        </Topology>
+        <Geometry GeometryType="XYZ">
+          <DataItem Dimensions="28 3" Format="HDF">microstructure_viz.h5:f0/f0_0/mesh/geometry</DataItem>
+        </Geometry>
+        <Time Value="0.000000000000000e+00" />
+        <Attribute ItemType="FiniteElementFunction" ElementFamily="CG" ElementDegree="1" ElementCell="tetrahedron" Name="f0" Center="Other" AttributeType="Vector">
+          <DataItem Dimensions="708 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:f0/f0_0/cell_dofs</DataItem>
+          <DataItem Dimensions="84 1" NumberType="Float" Format="HDF">microstructure_viz.h5:f0/f0_0/vector</DataItem>
+          <DataItem Dimensions="60 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:f0/f0_0/x_cell_dofs</DataItem>
+          <DataItem Dimensions="59 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:f0/f0_0/cells</DataItem>
+        </Attribute>
+      </Grid>
+    </Grid>
+    <Grid GridType="Collection" CollectionType="Temporal" Name="s0">
+      <Grid Name="s0_0" GridType="Uniform">
+        <Topology NumberOfElements="59" TopologyType="Tetrahedron" NodesPerElement="4">
+          <DataItem Dimensions="59 4" NumberType="UInt" Format="HDF">microstructure_viz.h5:s0/s0_0/mesh/topology</DataItem>
+        </Topology>
+        <Geometry GeometryType="XYZ">
+          <DataItem Dimensions="28 3" Format="HDF">microstructure_viz.h5:s0/s0_0/mesh/geometry</DataItem>
+        </Geometry>
+        <Time Value="0.000000000000000e+00" />
+        <Attribute ItemType="FiniteElementFunction" ElementFamily="CG" ElementDegree="1" ElementCell="tetrahedron" Name="s0" Center="Other" AttributeType="Vector">
+          <DataItem Dimensions="708 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:s0/s0_0/cell_dofs</DataItem>
+          <DataItem Dimensions="84 1" NumberType="Float" Format="HDF">microstructure_viz.h5:s0/s0_0/vector</DataItem>
+          <DataItem Dimensions="60 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:s0/s0_0/x_cell_dofs</DataItem>
+          <DataItem Dimensions="59 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:s0/s0_0/cells</DataItem>
+        </Attribute>
+      </Grid>
+    </Grid>
+    <Grid GridType="Collection" CollectionType="Temporal" Name="n0">
+      <Grid Name="n0_0" GridType="Uniform">
+        <Topology NumberOfElements="59" TopologyType="Tetrahedron" NodesPerElement="4">
+          <DataItem Dimensions="59 4" NumberType="UInt" Format="HDF">microstructure_viz.h5:n0/n0_0/mesh/topology</DataItem>
+        </Topology>
+        <Geometry GeometryType="XYZ">
+          <DataItem Dimensions="28 3" Format="HDF">microstructure_viz.h5:n0/n0_0/mesh/geometry</DataItem>
+        </Geometry>
+        <Time Value="0.000000000000000e+00" />
+        <Attribute ItemType="FiniteElementFunction" ElementFamily="CG" ElementDegree="1" ElementCell="tetrahedron" Name="n0" Center="Other" AttributeType="Vector">
+          <DataItem Dimensions="708 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:n0/n0_0/cell_dofs</DataItem>
+          <DataItem Dimensions="84 1" NumberType="Float" Format="HDF">microstructure_viz.h5:n0/n0_0/vector</DataItem>
+          <DataItem Dimensions="60 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:n0/n0_0/x_cell_dofs</DataItem>
+          <DataItem Dimensions="59 1" NumberType="UInt" Format="HDF">microstructure_viz.h5:n0/n0_0/cells</DataItem>
+        </Attribute>
+      </Grid>
+    </Grid>
+  </Domain>
+</Xdmf>
