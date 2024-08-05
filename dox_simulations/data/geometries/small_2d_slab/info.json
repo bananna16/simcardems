@@ -1,0 +1,13 @@
+{
+  "lx": 1e-06,
+  "ly": 1e-06,
+  "lz": 1e-06,
+  "dx": 1e-06,
+  "create_fibers": true,
+  "fibers_angle_endo": 0.0,
+  "fibers_angle_epi": 0.0,
+  "fiber_space": "P_1",
+  "mesh_type": 1,
+  "cardiac_geometry_version": "1.1.4",
+  "timestamp": "2024-08-05T17:42:03.832342"
+}

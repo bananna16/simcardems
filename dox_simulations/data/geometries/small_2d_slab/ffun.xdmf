@@ -3,14 +3,14 @@
 <Xdmf Version="3.0" xmlns:xi="http://www.w3.org/2001/XInclude">
   <Domain>
     <Grid Name="mesh" GridType="Uniform">
-      <Topology NumberOfElements="140" TopologyType="Triangle" NodesPerElement="3">
-        <DataItem Dimensions="140 3" NumberType="UInt" Format="HDF">ffun.h5:/MeshFunction/0/mesh/topology</DataItem>
+      <Topology NumberOfElements="60" TopologyType="Triangle" NodesPerElement="3">
+        <DataItem Dimensions="60 3" NumberType="UInt" Format="HDF">ffun.h5:/MeshFunction/0/mesh/topology</DataItem>
       </Topology>
       <Geometry GeometryType="XYZ">
-        <DataItem Dimensions="28 3" Format="HDF">ffun.h5:/MeshFunction/0/mesh/geometry</DataItem>
+        <DataItem Dimensions="14 3" Format="HDF">ffun.h5:/MeshFunction/0/mesh/geometry</DataItem>
       </Geometry>
       <Attribute Name="f" AttributeType="Scalar" Center="Cell">
-        <DataItem Dimensions="140 1" Format="HDF">ffun.h5:/MeshFunction/0/values</DataItem>
+        <DataItem Dimensions="60 1" Format="HDF">ffun.h5:/MeshFunction/0/values</DataItem>
       </Attribute>
     </Grid>
   </Domain>
