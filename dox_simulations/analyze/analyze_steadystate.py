@@ -19,21 +19,9 @@ for PoMm in range(1, num_models + 1):
 
     # workaround for healthy vs. DOX
     if PoMm == 1:
-        print(f"Analyzing DOXM1 Baseline 10 beat (model {PoMm})")
-        results_file = results_folder / "results_DOXM1_baseline_small/results.h5"
+        print(f"Analyzing Healthy Female Baseline (model {PoMm})")
+        results_file = results_folder / "results_healthy_female_small/results.h5"
         print(results_file)
-    elif PoMm == 2:
-        print(f"Analyzing DOXM1 Baseline 20 beat (model {PoMm})")
-        results_file = results_folder / "results_DOXM1_baseline_small/state_20beat.h5"
-    elif PoMm == 3:
-        print(f"Analyzing DOXM1 Baseline 30 beat (model {PoMm})")
-        results_file = results_folder / "results_DOXM1_baseline_small/state_30beat.h5"
-    elif PoMm == 4:
-        print(f"Analyzing DOXM1 Baseline 40 beat (model {PoMm})")
-        results_file = results_folder / "results_DOXM1_baseline_small/state_40beat.h5"
-    elif PoMm == 5:
-        print(f"Analyzing DOXM1 Baseline 50 beat (model {PoMm})")
-        results_file = results_folder / "results_DOXM1_baseline_small/state.h5"
 
     if not results_file.is_file():
         #results_file = population_folder.joinpath(f"m{PoMm}/results.h5")
@@ -45,7 +33,7 @@ for PoMm in range(1, num_models + 1):
 
 
 # Analyze data
-outdir = results_folder / "Results_DOXM1_Baseline_50Beat"
+outdir = results_folder / "Results_Healthy_Female_50Beat"
 print("------------------------------------------")
 print("Start analysis of results")
 #biomarker_dict = simcardems.postprocess.get_biomarkers(results, outdir, num_models)
