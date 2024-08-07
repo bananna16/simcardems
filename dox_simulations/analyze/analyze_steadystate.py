@@ -20,7 +20,7 @@ for PoMm in range(1, num_models + 1):
     # workaround for healthy vs. DOX
     if PoMm == 1:
         print(f"Analyzing Healthy Female Baseline (model {PoMm})")
-        results_file = results_folder / "results_healthy_female_small/results.h5"
+        results_file = results_folder / "50Beat/Results_Files/results_healthy_female_small/results.h5"
         print(results_file)
 
     if not results_file.is_file():
