@@ -13,7 +13,7 @@ import simcardems
 
 # Create configurations with custom output directory
 here = Path(__file__).absolute().parent
-outdir = here.parent.parent / "results/results_DOXM1_baseline_small"
+outdir = here.parent.parent / "results/Results_DOXM1_baseline_steadystate"
 
 # Specify paths to the geometry that we will use
 geometry_path = here.parent.parent / "data/geometries/small_2d_slab/slab.h5"
@@ -35,8 +35,9 @@ config = simcardems.Config(
     geometry_path=geometry_path,
     geometry_schema_path=geometry_schema_path,
     coupling_type = "fully_coupled_ORdmm_Land",
-    T=1000*50,
+    T=51000, #change this when startin from old state
     drug_factors_file=drug_factors_path,
+    load_state = True, #starting from state 50
     #popu_factors_file = popu_factors_path,
     #cell_init_file = initial_conditions_path,
 )
