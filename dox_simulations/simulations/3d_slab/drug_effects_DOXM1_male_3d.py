@@ -23,7 +23,7 @@ geometry_schema_path = here.parent.parent / "data/geometries/big_3d_slab/slab.js
 drug_factors_path = here.parent.parent / "data/drug_factors/DOX_FactorsM1.json"
 
 # Specify path to the initial conditions for the cell model
-#initial_conditions_path = here.parent.parent / "data/initial_conditions/DOX/initDOXbaseline_50beats.json"
+initial_conditions_path = here.parent.parent / "data/initial_conditions/DOX/init_male_DOXM1.json"
 
 # Specify path to the file containing population scaling factors
 popu_factors_path = here.parent.parent / "data/population_factors/representative_male.json"
@@ -35,11 +35,11 @@ config = simcardems.Config(
     geometry_path=geometry_path,
     geometry_schema_path=geometry_schema_path,
     coupling_type = "fully_coupled_ORdmm_Land",
-    T=51000,
+    T=1000,
     drug_factors_file=drug_factors_path,
     popu_factors_file = popu_factors_path,
-    load_state = True,
-    #cell_init_file = initial_conditions_path,
+    #load_state = True,
+    cell_init_file = initial_conditions_path,
 )
 
 # Print current configuration
