@@ -9,7 +9,7 @@ import ap_features as apf
 here = Path(__file__).absolute().parent
 folder = here.parent 
 results_folder =  folder / "results"
-num_models = 2
+num_models = 6
 
 # Generate dictionary for results
 results = {}
@@ -19,14 +19,33 @@ for PoMm in range(1, num_models + 1):
 
     # workaround for healthy vs. DOX
     if PoMm == 1:
-        print(f"Analyzing Healthy Baseline (model {PoMm})")
-        results_file = results_folder / "results_healthy_baseline_small/results.h5"
+        print(f"Analyzing Baseline (model {PoMm})")
+        results_file = results_folder/"SteadyStateSingleBeat/Results_Files/results_healthy_baseline_steadystate/results.h5"
         #print(results_file)
 
     elif PoMm == 2:
-        print(f"Analyzing DOX Baseline (model {PoMm})")
-        results_file = results_folder / "results_DOXM1_baseline_steadystate/results.h5"
+        print(f"Analyzing Female Healthy (model {PoMm})")
+        results_file = results_folder / "SteadyStateSingleBeat/Results_Files/results_healthy_female_steadystate/results.h5"
         #print(results_file)
+        
+    elif PoMm == 3:
+        print(f"Analyzing Male Healthy (model {PoMm})")
+        results_file = results_folder / "SteadyStateSingleBeat/Results_Files/results_healthy_male_steadystate/results.h5"
+        #print(results_file)
+        
+    elif PoMm == 4:
+        print(f"Analyzing Baseline DOX (model {PoMm})")
+        results_file = results_folder / "SteadyStateSingleBeat/Results_Files/results_DOXM1_baseline_steadystate/results.h5"
+        #print(results_file)
+        
+    elif PoMm == 5:
+        print(f"Analyzing Female DOX (model {PoMm})")
+        results_file = results_folder / "SteadyStateSingleBeat/Results_Files/results_DOXM1_female_steadystate/results.h5"
+        #print(results_file)
+        
+    elif PoMm == 6:
+        print(f"Analyzing Male DOX (model {PoMm})")
+        results_file = results_folder / "SteadyStateSingleBeat/Results_Files/results_DOXM1_male_steadystate/results.h5"
 
     if not results_file.is_file():
         #results_file = population_folder.joinpath(f"m{PoMm}/results.h5")
@@ -34,11 +53,11 @@ for PoMm in range(1, num_models + 1):
             raise FileNotFoundError(f"File {results_file} does not exist")
 
     loader = simcardems.DataLoader(results_file)
-    results[f"m{PoMm}"] = simcardems.postprocess.extract_traces(loader=loader, reduction="center", names=[("ep", "V")])
+    results[f"m{PoMm}"] = simcardems.postprocess.extract_traces(loader=loader, reduction="center", names=[("ep", "V"),("ep", "Ca")])
 
 
 # Analyze data
-outdir = results_folder / "DOXBaseline_vs_HealthyBaseline"
+outdir = results_folder / "AllModels"
 print("------------------------------------------")
 print("Start analysis of results")
 #biomarker_dict = simcardems.postprocess.get_biomarkers(results, outdir, num_models)
@@ -47,33 +66,79 @@ print("Start plotting")
 #simcardems.postprocess.plot_population(results, outdir , num_models)
 
 # Extract time and voltage data
-times_healthy = np.array(results["m1"]["time"], dtype=float)
-voltage_healthy = np.array(results["m1"]["ep"]["V"], dtype=float)
-times_dox = np.array(results["m2"]["time"], dtype=float)
-voltage_dox = np.array(results["m2"]["ep"]["V"], dtype=float)
+times_basehealthy = np.array(results["m1"]["time"], dtype=float)
+voltage_basehealthy = np.array(results["m1"]["ep"]["V"], dtype=float)
+times_femalehealthy = np.array(results["m2"]["time"], dtype=float)
+voltage_femalehealthy = np.array(results["m2"]["ep"]["V"], dtype=float)
+times_malehealthy = np.array(results["m3"]["time"], dtype=float)
+voltage_malehealthy = np.array(results["m3"]["ep"]["V"], dtype=float)
+times_basedox = np.array(results["m4"]["time"], dtype=float)
+voltage_basedox = np.array(results["m4"]["ep"]["V"], dtype=float)
+times_femaledox = np.array(results["m5"]["time"], dtype=float)
+voltage_femaledox = np.array(results["m5"]["ep"]["V"], dtype=float)
+times_maledox = np.array(results["m6"]["time"], dtype=float)
+voltage_maledox = np.array(results["m6"]["ep"]["V"], dtype=float)
+
+#Extract Calcium
+calcium_basehealthy = np.array(results["m1"]["ep"]["Ca"], dtype=float)
+calcium_femalehealthy = np.array(results["m2"]["ep"]["Ca"], dtype=float)
+calcium_malehealthy = np.array(results["m3"]["ep"]["Ca"], dtype=float)
+calcium_basedox = np.array(results["m4"]["ep"]["Ca"], dtype=float)
+calcium_femaledox = np.array(results["m5"]["ep"]["Ca"], dtype=float)
+calcium_maledox = np.array(results["m6"]["ep"]["Ca"], dtype=float)
 
 # Align the DOX time to start at 0
-times_dox_aligned = times_dox - times_dox.min()
+#times_dox_aligned = times_dox - times_dox.min()
 
 # Plot the data
-fig, ax = plt.subplots(figsize=(10, 8))
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 12))
 
-ax.plot(times_healthy, voltage_healthy, label="Healthy Baseline", color="blue")
-ax.plot(times_dox_aligned, voltage_dox, label="DOX Baseline", color="red")
+# Increase font size for labels and ticks
+label_fontsize = 16
+tick_fontsize = 14
+line_thickness = 2.5
+legend_size = 20
 
-ax.set_xlim([0, 600])  # Adjust the limits as needed
-ax.set_xlabel("Time (ms)")
-ax.set_ylabel("Voltage (mV)")
-ax.set_title("Voltage Traces: Healthy Baseline vs DOX Baseline")
-ax.legend()
+
+# Voltage vs. Time
+#ax1.plot(times_basehealthy, voltage_basehealthy, label="Baseline", color="blue", linewidth=line_thickness)
+ax1.plot(times_femalehealthy-50000, voltage_femalehealthy, label="Female", color="red", linewidth=line_thickness)
+#ax1.plot(times_malehealthy-50000, voltage_malehealthy, label="Male", color="green", linewidth=line_thickness)
+#ax1.plot(times_basedox-50000, voltage_basedox, label="Baseline+DOX", color="orange", linewidth=line_thickness)
+#ax1.plot(times_maledox-50000, voltage_maledox, label="Male DOX", color="purple", linewidth=line_thickness)
+ax1.plot(times_femaledox-50000, voltage_femaledox, label="Female DOX", color="magenta", linewidth=line_thickness)
+
+ax1.set_xlabel("Time (ms)", fontsize=label_fontsize)
+ax1.set_ylabel("Voltage (mV)", fontsize=label_fontsize)
+#ax1.set_title("Voltage Traces", fontsize=label_fontsize)
+#ax1.legend(fontsize=legend_size)
+ax1.tick_params(axis='both', which='major', labelsize=tick_fontsize)
+#ax1.set_xlim(0, 600)  # Set x-axis limits
+
+# Calcium vs. Time
+#ax2.plot(times_basehealthy, calcium_basehealthy*1000, label="Baseline", color="blue", linewidth=line_thickness)
+ax2.plot(times_femalehealthy-50000, calcium_femalehealthy*1000, label="Female", color="red", linewidth=line_thickness)
+#ax2.plot(times_malehealthy-50000, calcium_malehealthy*1000, label="Male", color="green", linewidth=line_thickness)
+#ax2.plot(times_basedox-50000, calcium_basedox*1000, label="Baseline+DOX", color="orange", linewidth=line_thickness)
+#ax2.plot(times_maledox-50000, calcium_maledox*1000, label="Male DOX", color="purple", linewidth=line_thickness)
+ax2.plot(times_femaledox-50000, calcium_femaledox*1000, label="Female DOX", color="magenta", linewidth=line_thickness)
+
+ax2.set_xlabel("Time (ms)", fontsize=label_fontsize)
+ax2.set_ylabel(r"Calcium (µM)", fontsize=label_fontsize)
+#ax2.set_title("Calcium Traces", fontsize=label_fontsize)
+ax2.legend(fontsize=legend_size)
+ax2.tick_params(axis='both', which='major', labelsize=tick_fontsize)
+#ax2.set_xlim(0, 600)  # Set x-axis limits
+
+
+plt.tight_layout()
+plt.show()
 
 # Save the plot
-outdir = results_folder / "DOXBaseline_vs_HealthyBaseline"
+outdir = results_folder / "PlotsforPresentation"
 outdir.mkdir(parents=True, exist_ok=True)
-fig.savefig(outdir.joinpath("voltage_traces_comparison.png"), dpi=300)
-fig.savefig(outdir.joinpath("voltage_traces_comparison.svg"), format="svg")
-
-plt.show()
+fig.savefig(outdir.joinpath("FemaleBaseDOX_voltagecalcium_traces_comparison.png"), dpi=300)
+fig.savefig(outdir.joinpath("FemaleBaseDOX_voltagecalcium_traces_comparison.svg"), format="svg")
 
 print("Plotting completed and files saved.")
 
